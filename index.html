@@ -1,67 +1,67 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="ru" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تبدیل کانفیگ به Sing-Box - NotePadVPN</title>
+    <title>Преобразовать конфигурацию в Sing-Box - NotePadVPN</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>تبدیل‌کننده کانفیگ به Sing-Box</h1>
-            <p>توسعه داده شده توسط <a href="https://t.me/NotePadVPN" target="_blank" class="brand-link">NotePadVPN (@NotePadVPN)</a></p>
+            <h1>Конвертер конфигурации в Sing-Box</h1>
+            <p>Разработано компанией <a href="https://t.me/NotePadVPN" target="_blank" class="brand-link">NotePadVPN (@NotePadVPN)</a></p>
         </header>
 
         <div class="tabs-container">
-            <button class="tab-button active" onclick="openTab(event, 'converter')">تبدیل</button>
-            <button class="tab-button" onclick="openTab(event, 'saved')">کانفیگ‌های ذخیره شده</button>
-            <button class="tab-button" onclick="openTab(event, 'about')">درباره ما</button>
+            <button class="tab-button active" onclick="openTab(event, 'converter')">Конвертация</button>
+            <button class="tab-button" onclick="openTab(event, 'saved')">Сохраненные конфигурации</button>
+            <button class="tab-button" onclick="openTab(event, 'about')">Обо мне</button>
         </div>
 
         <div id="converter" class="tab-content active">
             <main>
                 <section class="input-section">
-                    <label for="inputLinks">لینک‌های پروکسی یا اشتراک (هر کدام در یک خط):</label>
-                    <textarea id="inputLinks" rows="6" placeholder="vless://... یا https://..."></textarea>
-                    <label for="configName">نام دلخواه برای کانفیگ (اختیاری):</label>
-                    <input type="text" id="configName" placeholder="مثلاً: MyAwesomeConfig">
+                    <label for="inputLinks">Ссылки на прокси или подписку (каждая на отдельной строке):</label>
+                    <textarea id="inputLinks" rows="6" placeholder="vless://...  https://..."></textarea>
+                    <label for="configName">Дополнительная конфигурация (опционально):</label>
+                    <input type="text" id="configName" placeholder="Например: MyAwesomeConfig">
                 </section>
 
                 <section class="actions-section">
-                    <button id="convertBtn" class="primary-button">تبدیل به کانفیگ Sing-Box</button>
+                    <button id="convertBtn" class="primary-button">Преобразовать в конфигурацию Sing-Box</button>
                 </section>
 
                 <section class="output-section">
-                    <label for="outputConfig">خروجی کانفیگ Sing-Box (JSON):</label>
-                    <textarea id="outputConfig" rows="15" readonly placeholder="کانفیگ تولید شده در اینجا نمایش داده می‌شود..."></textarea>
+                    <label for="outputConfig">Вывод конфигурации Sing-Box (JSON):</label>
+                    <textarea id="outputConfig" rows="15" readonly placeholder="Сгенерированная конфигурация отображается здесь.."></textarea>
                     <div class="output-buttons">
-                        <button id="copyBtn" class="secondary-button" disabled>کپی کانفیگ</button>
-                        <button id="downloadBtn" class="secondary-button" disabled>دانلود کانفیگ</button>
-                        <button id="saveConfigBtn" class="secondary-button" disabled>ذخیره کانفیگ</button>
+                        <button id="copyBtn" class="secondary-button" disabled>Скопировать конфигурацию</button>
+                        <button id="downloadBtn" class="secondary-button" disabled>Скачать конфигурацию</button>
+                        <button id="saveConfigBtn" class="secondary-button" disabled>Сохранить конфигурацию</button>
                     </div>
                 </section>
             </main>
         </div>
 
         <div id="saved" class="tab-content">
-            <h2>کانفیگ‌های ذخیره شده</h2>
+            <h2>Сохраненные конфигурации</h2>
             <div id="savedConfigsList">
-                <p class="empty-state">هیچ کانفیگی ذخیره نشده است.</p>
+                <p class="empty-state">Настройки не сохранены.</p>
             </div>
         </div>
 
         <div id="about" class="tab-content about-section">
-            <h2>درباره ما</h2>
-            <p>این ابزار برای تبدیل لینک‌های پروکسی VLESS، VMess و Hysteria2 به فرمت کانفیگ Sing-Box طراحی شده است.</p>
-            <p>این ابزار تلاش می‌کند تا بهینه‌ترین کانفیگ ممکن را با در نظر گرفتن تنظیمات مناسب برای کاربران تولید کند.</p>
-            <p><strong>توسعه‌دهنده:</strong> NotePadVPN</p>
-            <p><strong>تلگرام:</strong> <a href="https://t.me/NotePadVPN" target="_blank" class="brand-link">@NotePadVPN</a></p>
-            <p><strong>نسخه:</strong> 1.1.0</p>
+            <h2>О нас</h2>
+            <p>Этот инструмент предназначен для преобразования прокси-ссылок VLESS, VMess, Hysteria2 В формате конфигурации Sing-Box.</p>
+            <p>Этот инструмент стремится создать максимально оптимальную конфигурацию, учитывая соответствующие настройки для пользователей.</p>
+            <p><strong>Разработчик:</strong> NotePadVPN</p>
+            <p><strong>Telegram:</strong> <a href="https://t.me/NotePadVPN" target="_blank" class="brand-link">@NotePadVPN</a></p>
+            <p><strong>Версия:</strong> 1.1.0</p>
         </div>
 
         <footer>
-            <p>&copy; ۲۰۲۵ NotePadVPN. تمامی حقوق محفوظ است.</p>
+            <p>&copy; 2025 NotePadVPN. All rights reserved.</p>
         </footer>
     </div>
 
