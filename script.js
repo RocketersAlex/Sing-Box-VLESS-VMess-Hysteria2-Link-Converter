@@ -28,13 +28,13 @@ document.addEventListener('DOMContentLoaded', () => {
     async function handleConversion() {
         const linksText = inputLinksEl.value.trim();
         if (!linksText) {
-            alert('لطفاً حداقل یک لینک پروکسی یا لینک اشتراک وارد کنید.');
+            alert('Например, пожалуйста, введите хотя бы одну прокси-ссылку или ссылку для подписки.');
             return;
         }
 
-        outputConfigEl.value = 'در حال پردازش، لطفاً صبر کنید...';
+        outputConfigEl.value = 'Обработка данных, пожалуйста, подождите...';
         convertBtn.disabled = true;
-        convertBtn.textContent = 'درحال تبدیل...';
+        convertBtn.textContent = 'Преобразование...';
         copyBtn.disabled = true;
         downloadBtn.disabled = true;
         saveConfigBtn.disabled = true;
@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         allOutbounds.push(...subOutbounds.filter(ob => ob !== null));
                     } catch (error) {
                         console.error(`Error processing subscription ${line}:`, error);
-                        alert(`خطا در پردازش لینک اشتراک ${line}: ${error.message}`);
+                        alert(`Ошибка обработки ссылки подписки ${line}: ${error.message}`);
                     }
                 } else {
                     try {
@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 downloadBtn.disabled = false;
                 saveConfigBtn.disabled = false;
             } else {
-                outputConfigEl.value = 'هیچ پروکسی معتبری برای تبدیل یافت نشد یا در پردازش اشتراک‌ها خطایی رخ داد.';
+                outputConfigEl.value = 'Не удалось найти подходящий прокси-сервер для конвертации, или произошла ошибка при обработке подписок...';
             }
 
         } catch (error) {
@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
             outputConfigEl.value = `خطای کلی در تبدیل: ${error.message}`;
         } finally {
             convertBtn.disabled = false;
-            convertBtn.textContent = 'تبدیل به کانفیگ Sing-Box';
+            convertBtn.textContent = 'Преобразовать в конфигурацию Sing-Box';
         }
     }
 
@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } catch (error) {
             console.error(`Failed to fetch or parse subscription from ${url}:`, error);
-            throw new Error(`دریافت یا پردازش اشتراک ${url} ناموفق بود: ${error.message}`);
+            throw new Error(`Получить или обработать подписку ${url} Попытка оказалась безуспешной: ${error.message}`);
         }
         return outbounds;
     }
@@ -210,7 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
             vmessConfig = JSON.parse(configStr);
         } catch (e) {
             console.error("Error decoding or parsing VMess link:", e, "Input:", link);
-            throw new Error(`لینک VMess نامعتبر: ${link.substring(0, 25)}...`);
+            throw new Error(`Invalid VMess link: ${link.substring(0, 25)}...`);
         }
 
         const remark = vmessConfig.ps || `vmess_${vmessConfig.add}_${vmessConfig.port || 'default'}`;
@@ -432,10 +432,10 @@ document.addEventListener('DOMContentLoaded', () => {
     function copyConfig() {
         if (outputConfigEl.value) {
             navigator.clipboard.writeText(outputConfigEl.value)
-                .then(() => alert('کانفیگ با موفقیت کپی شد!'))
+                .then(() => alert('Конфигурация успешно скопирована!'))
                 .catch(err => {
                     console.error('Clipboard copy failed:', err);
-                    prompt("خطا در کپی خودکار. لطفاً با Ctrl+C یا Cmd+C کپی کنید:", outputConfigEl.value);
+                    prompt("Ошибка при автоматическом копировании. Пожалуйста, скопируйте с помощью Ctrl+C или Cmd+C.", outputConfigEl.value);
                 });
         }
     }
@@ -458,24 +458,24 @@ document.addEventListener('DOMContentLoaded', () => {
     
     function saveCurrentConfig() {
         if (!currentGeneratedConfig) {
-            alert('هیچ کانفیگی برای ذخیره وجود ندارد. ابتدا یک کانفیگ تولید کنید.');
+            alert('Сохранять параметры конфигурации не нужно. Сначала сгенерируйте их.');
             return;
         }
         let name = configNameEl.value.trim();
         if (!name) {
             const timestamp = new Date().toLocaleDateString('fa-IR-u-nu-latn', { year: '2-digit', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }).replace(/[\s/:]/g, '-').replace(',','_');
-            name = prompt('لطفاً یک نام برای این کانفیگ وارد کنید (فقط حروف، اعداد و خط تیره):', `Config_${timestamp}`);
+            name = prompt('Пожалуйста, введите название для этой конфигурации (только буквы, цифры и дефисы):', `Config_${timestamp}`);
         }
         
         if (name) {
             const sanitizedName = name.replace(/[^\w\s._-]/g, '').replace(/\s+/g, '_');
             if (!sanitizedName){
-                alert("نام وارد شده نامعتبر است.");
+                alert("Введенное имя недействительно.");
                 return;
             }
             saveConfigToLocalStorage(sanitizedName, currentGeneratedConfig);
             loadSavedConfigs();
-            alert(`کانفیگ "${sanitizedName}" با موفقیت ذخیره شد.`);
+            alert(`Конфигурация "${sanitizedName}" Сохранено успешно.`);
         }
     }
 
@@ -486,7 +486,7 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem('notepadVPN_SingBoxConfigs_v1.1', JSON.stringify(savedConfigs));
         } catch (e) {
             console.error("Error saving to localStorage:", e);
-            alert('خطا در ذخیره کانفیگ. ممکن است حافظه مرورگر پر باشد یا اطلاعات قبلی خراب شده باشد.');
+            alert('Ошибка сохранения конфигурации. Возможно, память браузера переполнена или предыдущие данные повреждены.');
         }
     }
 
@@ -495,7 +495,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const savedConfigs = JSON.parse(localStorage.getItem('notepadVPN_SingBoxConfigs_v1.1') || '{}');
             if (Object.keys(savedConfigs).length === 0) {
-                savedConfigsListEl.innerHTML = '<p class="empty-state">هیچ کانفیگی تاکنون ذخیره نشده است.</p>';
+                savedConfigsListEl.innerHTML = '<p class="empty-state">Настройки еще не сохранены.</p>';
                 return;
             }
 
@@ -512,7 +512,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const loadButton = document.createElement('button');
                 loadButton.classList.add('load', 'secondary-button');
-                loadButton.textContent = 'بارگذاری';
+                loadButton.textContent = 'Загрузка';
                 loadButton.dataset.name = name;
                 loadButton.addEventListener('click', (e) => {
                     const configName = e.target.dataset.name;
@@ -529,21 +529,21 @@ document.addEventListener('DOMContentLoaded', () => {
                         openTab({ currentTarget: converterTabButton }, 'converter', true);
                     }
                     
-                    alert(`کانفیگ "${configName}" با موفقیت بارگذاری شد و در تب "تبدیل" نمایش داده می‌شود.`);
+                    alert(`Конфигурация "${configName}" Загрузка прошла успешно, файл отобразился во вкладке "Конвертировать".`);
                     outputConfigEl.scrollTop = 0;
                 });
 
                 const deleteButton = document.createElement('button');
                 deleteButton.classList.add('delete', 'secondary-button');
-                deleteButton.textContent = 'حذف';
+                deleteButton.textContent = 'Удалить';
                 deleteButton.dataset.name = name;
                 deleteButton.addEventListener('click', (e) => {
                     const configNameToDelete = e.target.dataset.name;
-                    if (confirm(`آیا از حذف کانفیگ ذخیره شده با نام "${configNameToDelete}" مطمئن هستید؟ این عمل قابل بازگشت نیست.`)) {
+                    if (confirm(`Вы уверены, что хотите удалить сохраненную конфигурацию с этим именем? "${configNameToDelete}" Вы уверены? Это действие необратимо.`)) {
                         delete savedConfigs[configNameToDelete];
                         localStorage.setItem('notepadVPN_SingBoxConfigs_v1.1', JSON.stringify(savedConfigs));
                         loadSavedConfigs();
-                        alert(`کانفیگ "${configNameToDelete}" حذف شد.`);
+                        alert(`Конфигурация "${configNameToDelete}" Удалено.`);
                     }
                 });
                 
@@ -556,7 +556,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } catch (e) {
             console.error("Error loading configs from localStorage:", e);
-            savedConfigsListEl.innerHTML = '<p class="empty-state">خطا در بارگذاری کانفیگ‌های ذخیره شده. ممکن است اطلاعات ذخیره شده قبلی خراب باشد.</p>';
+            savedConfigsListEl.innerHTML = '<p class="empty-state">Ошибка загрузки сохраненных конфигураций. Ранее сохраненные данные могут быть повреждены.</p>';
         }
     }
 });
